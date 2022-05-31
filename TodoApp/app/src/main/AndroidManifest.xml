@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.todoapp.todo">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/todoicon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/todoicon"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".activities.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
+
+        <activity
+            android:name=".activities.TodoAddActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".activities.TodoDetailsActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
+        <provider
+            android:name=".database.TodoProvider"
+            android:authorities="com.todoapp.todo"
+            android:exported="false" />
+
+        <receiver android:name=".widget.TodoWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/todo_widget_info" />
+        </receiver>
+
+        <service
+            android:name=".widget.TodoWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver android:name=".broadcastreceivers.AlarmReceiver" />
+
+        <service android:name=".services.TodoDoneIntentService" />
+
+    </application>
+
+</manifest>
